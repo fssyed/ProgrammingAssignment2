@@ -8,29 +8,29 @@ makeCacheMatrix <- function(x = matrix()) {
 m <- NULL
 set <- function(y) {
   x <<- y
-  m <<- NULL  
+  inv <<- NULL  
 
 }
 
 
 get <- function () x
-setmean <- function (mean) m <<- mean
-getmean <- function () m
+setinv <- function (solve) inv <<- solve
+getinv <- function () inv
 list(set = set, get=get, 
-      setmean = setmean,
-      getmean = getmean) 
+      setinv = setinv,
+      getinv = getinv) 
 
 
 ## gets mean of matrix "m"
 
 cacheSolve <- function(x, ...) {
-  m < - x$getmean()
-  if(!is.null(m)) {message ("getting cached data")
-    return(m)}
-  
+  m < - x$getinv()
+  if(!is.null(inv)) {message ("getting cached data")
+    return(inv)}
+}
   data <- x$get()
-  m <- mean(data, ...)
-  x$setmean(m)
+  inv <- solve(data, ...)
+  x$setinv(inv)
   m
 }
 
